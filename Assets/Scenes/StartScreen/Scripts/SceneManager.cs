@@ -21,11 +21,16 @@ public class SceneManager
 
     public static void NewGameScene()
     {
-        
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
     }
 
     public static void ContinueScene()
     {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+    }
 
+    public static string GetCurrentScene()
+    {
+        return UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
     }
 }
