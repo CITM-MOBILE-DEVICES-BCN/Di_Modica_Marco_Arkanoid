@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -16,9 +15,9 @@ public class GameManager : MonoBehaviour
     }
 
     [Header("Game Variables")]
-    GameState currentGameState;
-    private PlayerData playerData;
-    private SettingsData settingsData;
+    public GameState currentGameState;
+    [SerializeField] private PlayerData playerData;
+    [SerializeField] private SettingsData settingsData;
 
     private void Awake()
     {
@@ -46,7 +45,7 @@ public class GameManager : MonoBehaviour
             Application.Quit();
         }
 
-        switch (SceneManager.GetCurrentScene())
+        switch (SceneManager.instance.GetCurrentScene())
         {
             case "Menu":
                 if (currentGameState != GameState.Menu)
