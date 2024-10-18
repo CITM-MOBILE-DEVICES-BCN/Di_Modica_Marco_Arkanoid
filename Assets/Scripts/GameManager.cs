@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Variables")]
     public GameState currentGameState;
-    [SerializeField] private PlayerData playerData;
-    [SerializeField] private SettingsData settingsData;
+    public PlayerData playerData;
+    public SettingsData settingsData;
 
     private void Awake()
     {
@@ -33,8 +33,8 @@ public class GameManager : MonoBehaviour
 
         playerData = new PlayerData(3, 0, 0, 1);
         settingsData = new SettingsData(1.0f, 0);
-        
-        playerData.Load();
+
+        playerData.LoadHighscore();
         settingsData.Load();
     }
 
@@ -103,6 +103,21 @@ public class GameManager : MonoBehaviour
     public void SetLives(int newLives)
     {
         playerData.lives = newLives;
+    }
+
+    public int GetScore()
+    {
+        return playerData.score;
+    }
+
+    public int GetHighScore()
+    {
+        return playerData.highScore;
+    }
+
+    public int GetLives()
+    {
+        return playerData.lives;
     }
 
     public void ResetGame()

@@ -34,6 +34,19 @@ public class PlayerData
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         level = PlayerPrefs.GetInt("Level", 1);
     }
+
+    public void Reset()
+    {
+        PlayerPrefs.SetInt("Lives", 3);
+        PlayerPrefs.SetInt("Score", 0);
+        PlayerPrefs.SetInt("Level", 1);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadHighscore()
+    {
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
+    }
 }
 
 [System.Serializable]

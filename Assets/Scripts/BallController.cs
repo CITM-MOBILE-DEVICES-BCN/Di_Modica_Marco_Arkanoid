@@ -21,7 +21,7 @@ public class BallController : MonoBehaviour
     {
         if (starting)
         {
-            transform.position = new Vector3(paddleTransform.position.x, paddleTransform.position.y + 0.5f, 0);
+            transform.position = new Vector3(paddleTransform.position.x, paddleTransform.position.y + 0.4f, 0);
         }
         
         if (speed > maxSpeed)
@@ -34,22 +34,38 @@ public class BallController : MonoBehaviour
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
 
-        if (transform.position.x < min.x || transform.position.x > max.x)
+        if (transform.position.x < min.x)
         {
+            transform.position = new Vector3(min.x, transform.position.y, 0);
             direction.x = -direction.x;
             speed += speedIncrease;
         }
-
-        if (transform.position.y > max.y)
+        else if (transform.position.x > max.x)
         {
-            direction.y = -direction.y;
+            transform.position = new Vector3(max.x, transform.position.y, 0);
+            direction.x = -direction.x;
             speed += speedIncrease;
         }
-
-        if (transform.position.y < min.y)
+        else if (transform.position.y < min.y)
         {
-            //SceneManager.instance.MenuSceneAfterPlay();
-            StartCoroutine(StartBall());
+            GameManager.instance.SetLives(GameManager.instance.GetLives() - 1);
+
+            if (GameManager.instance.GetLives() > 0)
+            {
+                speed = 0f;
+                StartCoroutine(StartBall());
+            }
+            else
+            {
+                SceneManager.instance.MenuSceneAfterPlay();
+                GameManager.instance.playerData.Save();
+            }
+        }
+        else if (transform.position.y > max.y)
+        {
+            transform.position = new Vector3(transform.position.x, max.y, 0);
+            direction.y = -direction.y;
+            speed += speedIncrease;
         }
     }
 
@@ -57,6 +73,7 @@ public class BallController : MonoBehaviour
     {
         starting = true;
         yield return new WaitForSeconds(2);
+        speed = 5f;
         starting = false;
         direction = new Vector2(0, 1);
     }
@@ -74,16 +91,16 @@ public class BallController : MonoBehaviour
 
             float offset = (ballPosition.x - paddlePosition.x) / (paddleWidth / 2);
 
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, 0);
             direction.y = -direction.y;
 
             direction.x = offset;
             direction.Normalize();
         }
 
-        // Comprobar colisión con los bloques
         if (collision.gameObject.CompareTag("Brick"))
         {
-            Destroy(collision.gameObject);
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, 0);
             direction.y = -direction.y;
         }
     }
