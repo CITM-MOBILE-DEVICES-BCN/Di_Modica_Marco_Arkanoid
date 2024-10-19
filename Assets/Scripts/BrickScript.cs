@@ -9,6 +9,7 @@ public class BrickScript : MonoBehaviour
     public Color[] colors;
     public UnityEngine.UI.Image image;
     public Collider2D collider;
+    public GameObject powerUp;
 
     private void Start()
     {
@@ -36,6 +37,10 @@ public class BrickScript : MonoBehaviour
                         break;
                     case 3:
                         GameManager.instance.SetScore(300);
+                        break;
+                    case 4:
+                        GameManager.instance.SetScore(400);
+                        Instantiate(powerUp, transform.position, Quaternion.identity);
                         break;
                 }
 

@@ -7,8 +7,9 @@ public class BallController : MonoBehaviour
     public float speed = 10f;
     public float maxSpeed = 20f;
     public float speedIncrease = 0.05f;
-    private Vector2 direction;
-    private bool starting = true;
+    public Vector2 direction;
+    public bool starting = true;
+    public Rigidbody2D rb;
 
     public Transform paddleTransform;
 
@@ -17,7 +18,7 @@ public class BallController : MonoBehaviour
         StartCoroutine(StartBall());
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (starting)
         {
@@ -29,24 +30,26 @@ public class BallController : MonoBehaviour
             speed = maxSpeed;
         }
 
-        transform.Translate(speed * Time.deltaTime * direction);
+        transform.Translate(direction * speed * Time.fixedDeltaTime);
 
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
 
         if (transform.position.x < min.x)
         {
-            transform.position = new Vector3(min.x, transform.position.y, 0);
+            transform.position = new Vector3(min.x + .01f, transform.position.y, 0);
             direction.x = -direction.x;
             speed += speedIncrease;
         }
-        else if (transform.position.x > max.x)
+        
+        if (transform.position.x > max.x)
         {
-            transform.position = new Vector3(max.x, transform.position.y, 0);
+            transform.position = new Vector3(max.x - .01f, transform.position.y, 0);
             direction.x = -direction.x;
             speed += speedIncrease;
         }
-        else if (transform.position.y < min.y)
+        
+        if (transform.position.y < min.y)
         {
             GameManager.instance.SetLives(GameManager.instance.GetLives() - 1);
 
@@ -61,9 +64,10 @@ public class BallController : MonoBehaviour
                 GameManager.instance.playerData.Save();
             }
         }
-        else if (transform.position.y > max.y)
+        
+        if (transform.position.y > max.y)
         {
-            transform.position = new Vector3(transform.position.x, max.y, 0);
+            transform.position = new Vector3(transform.position.x, max.y - .01f, 0);
             direction.y = -direction.y;
             speed += speedIncrease;
         }
