@@ -8,7 +8,6 @@ public class BrickScript : MonoBehaviour
     public int resistance;
     public Color[] colors;
     public UnityEngine.UI.Image image;
-    public Collider2D collider;
     public GameObject powerUp;
 
     private void Start()
@@ -40,16 +39,17 @@ public class BrickScript : MonoBehaviour
                         break;
                     case 4:
                         GameManager.instance.SetScore(400);
-                        Instantiate(powerUp, transform.position, Quaternion.identity);
+                        GameObject power = Instantiate(powerUp, GetComponentInParent<Transform>());
                         break;
                 }
 
                 image.color = new(1,1,1,0);
-                collider.enabled = false;
+                GetComponent<Collider2D>().enabled = false;
             }
             else
             {
                 image.color = colors[resistance - 1];
+                GetComponent<Collider2D>().enabled = true;
             }
         }
     }

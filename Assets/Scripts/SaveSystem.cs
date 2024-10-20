@@ -48,29 +48,3 @@ public class PlayerData
         highScore = PlayerPrefs.GetInt("HighScore", 0);
     }
 }
-
-[System.Serializable]
-public class SettingsData
-{
-    public float volume;
-    public int screenMode;
-
-    public SettingsData(float vol, int screenIndex)
-    {
-        volume = vol;
-        screenMode = screenIndex;
-    }
-
-    public void Save()
-    {
-        PlayerPrefs.SetFloat("Volume", volume);
-        PlayerPrefs.SetInt("ScreenMode", screenMode);
-        PlayerPrefs.Save();
-    }
-
-    public void Load()
-    {
-        volume = PlayerPrefs.GetFloat("Volume", 1.0f);
-        screenMode = PlayerPrefs.GetInt("ScreenMode", 0);
-    }
-}

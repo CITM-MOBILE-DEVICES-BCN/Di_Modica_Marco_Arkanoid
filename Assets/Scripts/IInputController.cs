@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public interface IInputController
 {
-    Vector3 GetPaddlePosition(Vector3 currentPosition);
+    void ControlPaddle(Slider paddle);
 }

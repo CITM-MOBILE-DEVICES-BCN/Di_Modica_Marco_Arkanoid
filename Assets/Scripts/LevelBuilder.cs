@@ -9,6 +9,8 @@ public class LevelBuilder : MonoBehaviour
     public int portraitRows = 6;
     public int landscapeColumns = 6;
     public int landscapeRows = 4;
+    public int blockWidth = 200;
+    public int blockHeight = 40;
 
     private int currentColumns;
     private int currentRows;
@@ -71,12 +73,25 @@ public class LevelBuilder : MonoBehaviour
             {
                 GameObject block = Instantiate(blockPrefab, parentTransform);
                 RectTransform blockRect = block.GetComponent<RectTransform>();
-
-                blockRect.sizeDelta = new Vector2(blockWidth, blockHeight);
-
-                blockRect.anchoredPosition = new Vector2(i * blockWidth, -j * blockHeight);
             }
         }
+
+        //float blockWidth = parentRect.width / currentColumns;
+        //float blockHeight = parentRect.height / currentRows;
+
+        //for (int i = 0; i < currentColumns; i++)
+        //{
+        //    for (int j = 0; j < currentRows; j++)
+        //    {
+        //        GameObject block = Instantiate(blockPrefab, parentTransform);
+        //        RectTransform blockRect = block.GetComponent<RectTransform>();
+
+        //        blockRect.sizeDelta = new Vector2(blockWidth, blockHeight);
+        //        GetComponent<GridLayoutGroup>().cellSize = new Vector2(blockWidth, blockHeight);
+
+        //        blockRect.anchoredPosition = new Vector2(i * blockWidth, -j * blockHeight);
+        //    }
+        //}
     }
 
     // Safe area support (test)

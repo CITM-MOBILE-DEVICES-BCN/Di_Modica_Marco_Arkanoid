@@ -9,15 +9,13 @@ public class GameManager : MonoBehaviour
     {
         Menu,
         Game,
-        Pause,
-        Settings,
-        GameOver
+        Victory,
+        Defeat
     }
 
     [Header("Game Variables")]
     public GameState currentGameState;
     public PlayerData playerData;
-    public SettingsData settingsData;
 
     private void Awake()
     {
@@ -32,10 +30,8 @@ public class GameManager : MonoBehaviour
         }
 
         playerData = new PlayerData(3, 0, 0, 1);
-        settingsData = new SettingsData(1.0f, 0);
 
         playerData.LoadHighscore();
-        settingsData.Load();
     }
 
     private void Update()
@@ -54,21 +50,21 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case "Game":
-                if (currentGameState != GameState.Game || currentGameState != GameState.Pause)
+                if (currentGameState != GameState.Game)
                 {
                     SetGameState(GameState.Game);
                 }
                 break;
-            case "GameOver":
-                if (currentGameState != GameState.GameOver)
+            case "Defeat":
+                if (currentGameState != GameState.Defeat)
                 {
-                    SetGameState(GameState.GameOver);
+                    SetGameState(GameState.Defeat);
                 }
                 break;
-            case "Settings":
-                if (currentGameState != GameState.Settings)
+            case "Victory":
+                if (currentGameState != GameState.Victory)
                 {
-                    SetGameState(GameState.Settings);
+                    SetGameState(GameState.Victory);
                 }
                 break;
             default:

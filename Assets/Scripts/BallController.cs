@@ -10,6 +10,7 @@ public class BallController : MonoBehaviour
     public Vector2 direction;
     public bool starting = true;
     public Rigidbody2D rb;
+    private bool isColliding = false;
 
     public Transform paddleTransform;
 
@@ -18,7 +19,7 @@ public class BallController : MonoBehaviour
         StartCoroutine(StartBall());
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (starting)
         {
@@ -30,7 +31,7 @@ public class BallController : MonoBehaviour
             speed = maxSpeed;
         }
 
-        transform.Translate(direction * speed * Time.fixedDeltaTime);
+        transform.Translate(direction * speed * Time.deltaTime);
 
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
@@ -60,8 +61,8 @@ public class BallController : MonoBehaviour
             }
             else
             {
-                SceneManager.instance.MenuSceneAfterPlay();
-                GameManager.instance.playerData.Save();
+                SceneManager.instance.LoadDefeat();
+                GameManager.instance.playerData.Reset();
             }
         }
         
@@ -84,8 +85,12 @@ public class BallController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isColliding) return;
+
+        isColliding = true;
+
         speed += speedIncrease;
-        
+
         if (collision.gameObject.CompareTag("Paddle"))
         {
             Vector3 ballPosition = transform.position;
@@ -107,5 +112,13 @@ public class BallController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, 0);
             direction.y = -direction.y;
         }
+
+        StartCoroutine(ResetCollision());
+    }
+
+    private IEnumerator ResetCollision()
+    {
+        yield return new WaitForEndOfFrame();
+        isColliding = false;
     }
 }

@@ -1,22 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MouseInput : IInputController
 {
-    public Vector3 GetPaddlePosition(Vector3 currentPosition)
+    public void ControlPaddle(Slider slider)
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
-
-        //calculate de width of the paddle
-        GameObject paddle = GameObject.FindGameObjectWithTag("Paddle");
-        float halfPaddleWidth = paddle.GetComponent<RectTransform>().localScale.x;
-
-        mousePosition.x = Mathf.Clamp(mousePosition.x,
-                                      -Camera.main.orthographicSize * Camera.main.aspect + halfPaddleWidth,
-                                      Camera.main.orthographicSize * Camera.main.aspect - halfPaddleWidth);
-
-        return new Vector3(mousePosition.x, currentPosition.y, 0);
+        slider.interactable = true;
+        slider.value = Input.mousePosition.x / Screen.width;
     }
 }

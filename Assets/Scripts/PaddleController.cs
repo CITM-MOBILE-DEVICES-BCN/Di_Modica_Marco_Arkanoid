@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PaddleController : MonoBehaviour
 {
     private IInputController inputController;
-    public Transform ballTransform;
+    public GameObject ballTransform;
+    public Slider slider;
     public float iaSpeed = 5f;
     public float iaMargin = 0.5f;
 
@@ -37,7 +39,7 @@ public class PaddleController : MonoBehaviour
 
         if (inputController != null)
         {
-            transform.position = inputController.GetPaddlePosition(transform.position);
+            inputController.ControlPaddle(slider);
         }
     }
 
@@ -49,7 +51,7 @@ public class PaddleController : MonoBehaviour
                 inputController = new MouseInput();
                 break;
             case InputType.AI:
-                inputController = new AIInput(ballTransform, iaSpeed, iaMargin);
+                inputController = new AIInput();
                 break;
         }
     }

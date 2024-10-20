@@ -4,20 +4,36 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
+    public GameObject continueButton;
+    public GameObject newGameButton;
+    public GameObject settingsButton;
+
+    private void Update()
+    {
+        if (GameManager.instance.playerData.score != 0)
+        {
+            continueButton.SetActive(true);
+        }
+        else
+        {
+            continueButton.SetActive(false);
+        }
+    }
+
     public void NewGame()
     {
-        SceneManager.instance.NewGameScene();
+        SceneManager.instance.LoadGame();
         GameManager.instance.playerData.Reset();
     }
 
     public void LoadGame()
     {
-        SceneManager.instance.ContinueScene();
+        SceneManager.instance.LoadGame();
         GameManager.instance.playerData.Load();
     }
 
-    public void Settings()
+    public void Quit()
     {
-        SceneManager.instance.SettingsScene();
+        Application.Quit();
     }
 }

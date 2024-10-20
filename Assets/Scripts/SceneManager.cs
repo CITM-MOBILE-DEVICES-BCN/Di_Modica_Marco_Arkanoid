@@ -19,30 +19,25 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public void MenuSceneAfterPlay()
+    public void LoadMenu()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
     }
 
-    public void MenuSceneAfterQuit()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
-    }
-
-    public void SettingsScene()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Settings");
-    }
-
-    public void NewGameScene()
+    public void LoadGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
     }
 
-    public void ContinueScene()
+    public void LoadVictory()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Victory");
     }
+
+    public void LoadDefeat()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Defeat");
+    }    
 
     public string GetCurrentScene()
     {
