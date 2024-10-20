@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BrickScript : MonoBehaviour
@@ -9,6 +7,10 @@ public class BrickScript : MonoBehaviour
     public Color[] colors;
     public UnityEngine.UI.Image image;
     public GameObject powerUp;
+    public BoxCollider2D boxCollider;
+    public bool destroyed = false;
+
+    private bool powerUpInstanciado = false;
 
     private void Start()
     {
@@ -25,7 +27,6 @@ public class BrickScript : MonoBehaviour
 
             if (resistance <= 0)
             {
-                
                 switch (initialResistance)
                 {
                     case 1:
@@ -39,18 +40,29 @@ public class BrickScript : MonoBehaviour
                         break;
                     case 4:
                         GameManager.instance.SetScore(400);
-                        GameObject power = Instantiate(powerUp, GetComponentInParent<Transform>());
+                        if (!powerUpInstanciado)
+                        {
+                            Instantiate(powerUp, GetComponentInParent<Transform>());
+                            powerUpInstanciado = true;
+                        }
                         break;
                 }
 
-                image.color = new(1,1,1,0);
-                GetComponent<Collider2D>().enabled = false;
+                image.color = new Color(1, 1, 1, 0);
+                boxCollider.enabled = false;
+                destroyed = true;
             }
             else
             {
                 image.color = colors[resistance - 1];
-                GetComponent<Collider2D>().enabled = true;
+                boxCollider.enabled = true;
+                destroyed = false;
             }
         }
+    }
+
+    public bool IsDestroyed()
+    {
+        return destroyed;
     }
 }

@@ -107,10 +107,14 @@ public class BallController : MonoBehaviour
             direction.Normalize();
         }
 
-        if (collision.gameObject.CompareTag("Brick"))
+        if (collision.gameObject.CompareTag("BrickT"))
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, 0);
             direction.y = -direction.y;
+        }
+
+        if (collision.gameObject.CompareTag("BrickS"))
+        {
+            direction.x = -direction.x;
         }
 
         StartCoroutine(ResetCollision());

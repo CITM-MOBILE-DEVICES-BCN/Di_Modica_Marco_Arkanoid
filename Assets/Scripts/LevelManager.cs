@@ -8,11 +8,13 @@ public class LevelManager : MonoBehaviour
     public GameObject levelTwoBricks;
     public List<GameObject> levelBricks = new List<GameObject>();
 
+    public bool levelComplete = false;
+
     private void Start()
     {
         levelBricks.Clear();
 
-        switch (GameManager.instance.playerData.level % 2)
+        switch (GameManager.instance.playerData.level)
         {
             case 1:
                 levelOneBricks.SetActive(true);
@@ -41,13 +43,33 @@ public class LevelManager : MonoBehaviour
     }
 
     private void Update()
-    {
-        if (levelBricks.Count == 0)
+    {        
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            levelComplete = true;
+        }
+
+        CheckLevelComplete();
+
+        if (levelComplete)
         {
             Debug.Log("Level Complete");
             GameManager.instance.playerData.level++;
             GameManager.instance.playerData.Save();
             SceneManager.instance.LoadVictory();
         }
+    }
+
+    private void CheckLevelComplete()
+    {
+        foreach (GameObject brick in levelBricks)
+        {
+            if (!brick.GetComponent<BrickScript>().destroyed)
+            {
+                return;
+            }
+        }
+
+        levelComplete = true;
     }
 }
