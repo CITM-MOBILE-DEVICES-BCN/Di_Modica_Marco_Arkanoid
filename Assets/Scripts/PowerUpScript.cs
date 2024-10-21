@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PowerUpScript : MonoBehaviour
 {
     private BallController ballController;
+    public Color color1;
+    public Color color2;
+    public Color color3;
+    public TextMeshProUGUI powerUpText;
     private int randomPowerUp;
 
     private void Start()
@@ -16,13 +21,13 @@ public class PowerUpScript : MonoBehaviour
         switch (randomPowerUp)
         {
             case 0:
-                GetComponent<UnityEngine.UI.Image>().color = Color.green;
+                GetComponent<UnityEngine.UI.Image>().color = color1;
                 break;
             case 1:
-                GetComponent<UnityEngine.UI.Image>().color = Color.red;
+                GetComponent<UnityEngine.UI.Image>().color = color2;
                 break;
             case 2:
-                GetComponent<UnityEngine.UI.Image>().color = Color.blue;
+                GetComponent<UnityEngine.UI.Image>().color = color3;
                 break;
         }
     }
@@ -39,18 +44,19 @@ public class PowerUpScript : MonoBehaviour
             switch (randomPowerUp)
             {
                 case 0:
-                    ballController.speed += 2;
+                    ballController.speed += 4;
                     break;
                 case 1:
-                    ballController.speed -= 2;
+                    ballController.speed -= 4;
                     break;
                 case 2:
-                    ballController.speed = 10;
+                    ballController.speed = 5;
                     break;
             }
 
             GetComponent<UnityEngine.UI.Image>().enabled = false;
             GetComponent<Collider2D>().enabled = false;
+            powerUpText.enabled = true;
         }
     }
 }

@@ -14,13 +14,13 @@ public class LevelManager : MonoBehaviour
     {
         levelBricks.Clear();
 
-        switch (GameManager.instance.playerData.level)
+        switch (GameManager.instance.playerData.level % 2)
         {
             case 1:
                 levelOneBricks.SetActive(true);
                 AddBricksToLevelList(levelOneBricks);
                 break;
-            case 2:
+            case 0:
                 levelTwoBricks.SetActive(true);
                 AddBricksToLevelList(levelTwoBricks);
                 break;

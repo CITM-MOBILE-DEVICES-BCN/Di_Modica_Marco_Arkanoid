@@ -38,6 +38,7 @@ public class BallController : MonoBehaviour
 
         if (transform.position.x < min.x)
         {
+            AudioManager.instance.PlaySFX("Wall");
             transform.position = new Vector3(min.x + .01f, transform.position.y, 0);
             direction.x = -direction.x;
             speed += speedIncrease;
@@ -45,6 +46,7 @@ public class BallController : MonoBehaviour
         
         if (transform.position.x > max.x)
         {
+            AudioManager.instance.PlaySFX("Wall");
             transform.position = new Vector3(max.x - .01f, transform.position.y, 0);
             direction.x = -direction.x;
             speed += speedIncrease;
@@ -52,6 +54,8 @@ public class BallController : MonoBehaviour
         
         if (transform.position.y < min.y)
         {
+            AudioManager.instance.PlaySFX("Score");
+
             GameManager.instance.SetLives(GameManager.instance.GetLives() - 1);
 
             if (GameManager.instance.GetLives() > 0)
@@ -68,6 +72,7 @@ public class BallController : MonoBehaviour
         
         if (transform.position.y > max.y)
         {
+            AudioManager.instance.PlaySFX("Wall");
             transform.position = new Vector3(transform.position.x, max.y - .01f, 0);
             direction.y = -direction.y;
             speed += speedIncrease;
@@ -93,6 +98,8 @@ public class BallController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Paddle"))
         {
+            AudioManager.instance.PlaySFX("Hit");
+
             Vector3 ballPosition = transform.position;
             Vector3 paddlePosition = collision.transform.position;
 
@@ -110,30 +117,10 @@ public class BallController : MonoBehaviour
         // Brick collision (NOT YET FINISHED)
         if (collision.gameObject.CompareTag("Brick"))
         {
-            Vector2 ballPosition = transform.position;
-            Bounds brickBounds = collision.bounds;
+            AudioManager.instance.PlaySFX("Hit");
 
-            float distLeft = Mathf.Abs(ballPosition.x - brickBounds.min.x);
-            float distRight = Mathf.Abs(ballPosition.x - brickBounds.max.x);
-            float distUp = Mathf.Abs(ballPosition.y - brickBounds.max.y);
-            float distDown = Mathf.Abs(ballPosition.y - brickBounds.min.y);
-
-            if (distLeft < distRight && distLeft < distUp && distLeft < distDown)
-            {
-                direction.x = -direction.x;
-            }
-            else if (distRight < distLeft && distRight < distUp && distRight < distDown)
-            {
-                direction.x = -direction.x;
-            }
-            else if (distUp < distLeft && distUp < distRight && distUp < distDown)
-            {
-                direction.y = -direction.y;
-            }
-            else if (distDown < distLeft && distDown < distRight && distDown < distUp)
-            {
-                direction.y = -direction.y;
-            }
+            transform.position = new Vector3(transform.position.x, transform.position.y - 0.1f, 0);
+            direction.y = -direction.y;
         }
 
         StartCoroutine(ResetCollision());
