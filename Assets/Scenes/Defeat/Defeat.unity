@@ -991,8 +991,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VictoryManager, Assembly-CSharp
+      - m_Target: {fileID: 100019807}
+        m_TargetAssemblyTypeName: DefeatManager, Assembly-CSharp
         m_MethodName: GoToMenu
         m_Mode: 1
         m_Arguments:

@@ -6918,6 +6918,7 @@ MonoBehaviour:
     score: 20
     highScore: 0
     level: 2
+  screenType: 0
 --- !u!4 &1498047475
 Transform:
   m_ObjectHideFlags: 0

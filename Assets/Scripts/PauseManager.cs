@@ -42,6 +42,8 @@ public class PauseManager : MonoBehaviour
     public void GoToMenu()
     {
         ResumeGame();
+        GameManager.instance.ResetGame();
+        GameManager.instance.playerData.Reset();
         SceneManager.instance.LoadMenu();
     }
 }

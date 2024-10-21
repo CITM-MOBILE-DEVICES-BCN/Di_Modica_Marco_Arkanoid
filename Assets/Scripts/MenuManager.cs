@@ -6,7 +6,6 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject continueButton;
     public GameObject newGameButton;
-    public GameObject settingsButton;
 
     private void Update()
     {
@@ -29,8 +28,8 @@ public class MenuManager : MonoBehaviour
 
     public void LoadGame()
     {
-        SceneManager.instance.LoadGame();
         GameManager.instance.playerData.Load();
+        SceneManager.instance.LoadGame();
     }
 
     public void Quit()

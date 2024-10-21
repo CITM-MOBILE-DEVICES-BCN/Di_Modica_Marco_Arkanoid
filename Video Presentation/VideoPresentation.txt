@@ -1,0 +1,27 @@
+Link: https://youtu.be/0YOxU0Dl8io
+
+Arkanoid Mobile Project Presentation
+
+Hello, and welcome to the presentation of my Arkanoid project for the Mobile Devices course. I'll start by walking you through the main menu. In the menu, we have a simple UI with three buttons: one of them only becomes active if a saved game exists with a level higher than 1. Then we have the New Game button, which starts a new game, and the Quit button to close the application.
+
+Since this is the first scene, I've set up three key singletons for better accessibility. First, we have the GameManager, which inherits from PlayerData, a class responsible for managing saved game data. It also manages the state machine, which switches based on the current scene's name. In this class, we have several getter and setter functions to handle some of the important variables.
+
+Next, we have the AudioManager, which contains a GameObject with a script I'll explain in a moment, along with two child objects—one for the music source and another for the sound effects (FX) source. The script is straightforward: it references the audio sources and contains an array of sounds declared in a separate class (shown here). We have functions to play music or sound effects, stop the music, adjust the volume, or mute it altogether.
+
+The third singleton is the SceneManager, which centralizes functions to handle scene transitions, and includes a function to check the current scene.
+
+Now, if we hit Play, we move to the game scene. Depending on the level, a different block arrangement will load. First, we have the LevelManager, which handles the level configurations I just mentioned. Here’s the code for it.
+
+Then, we have the UI, which is updated in real-time by the InterfaceManager script with the correct values. The PauseManager takes care of pausing the game—it activates and deactivates the pause menu, adds functionality to the buttons, freezes time, and prevents the paddle from moving.
+
+Next, we have the bricks, which are scaled correctly to adjust to different screen resolutions. This is only done in-game because it checks for resolution changes every frame and adjusts accordingly.
+
+The paddle controls use an Adaptive Pattern, where I have an interface and two control schemes—mouse and AI. The PaddleController manages these inputs through an enum and a function to switch between them.
+
+The ball is responsible for its own physics and collision handling. If the ball touches the bottom limit of the screen, it subtracts a life by calling the GameManager. If lives reach zero, the defeat state is triggered.
+
+Now let’s talk about the bricks. Each brick prefab is initialized with a random resistance value. When a brick's resistance reaches zero, it adds to the player's score and sometimes spawns a power-up. These power-ups can be one of three different types, and if they collide with the paddle, their effect is triggered.
+
+That covers everything in the gameplay scene. There are two additional scenes: Victory and Defeat. In the victory scene, you get congratulated and are given the option to save your game and return to the menu, or continue playing. In the defeat scene, player data is reset, and you’re sent back to the menu.
+
+That concludes the presentation. Thank you very much for your attention. Now, I’ll move on to a gameplay demonstration. I’ll play through the levels quickly, skipping some parts to showcase all the key functionalities in a short time. Once again, thank you, and see you next time!

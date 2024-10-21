@@ -1,0 +1,22 @@
+menu:
+menucontroller - handle buttons and button functions
+GameManager - Singelton, StateMachine(GameState) between: Menu,Game,Vectory,Defeat.
+SaveSystem(player data class) has functions to save, load and reset, the rest is managed by the gameManager
+AudioManager - Singelton, manages all the audio divided in fx and music
+sceneManager - Singelton, manages scene changes
+
+Game:
+PauseManager - manages the resume the pause and a quit(scene manager called to go to the menu) function that the pause menu buttons inherit, also prevents the player from moving when the game is paused.
+LevelsManager - Checks in what level you re in and sets active the level you have to play, also checks when the level is completed and with the instance of the GameManager saves the player data, then, with the scene manager loads the winning scene.
+InterfaceManager - gets the values from the GameManager and displays it on the UI
+PaddleController - manages the paddle with an adaptive design pattern, first we have the Interface created named (IInputController), then we have 2 scripts that inherit this Interface, that are the MouseInput and the AiInput, then in the paddle controller we create a variable with the typu IInputController and with an Enum (Mouse, Ai), we manages with control scheme we are using.
+BallController - in this script we manage the initialization of the ball, the movement direction and velocity, and the collisions with other objects. Also we check when the ball touched the botton of the screen to substract one live of the player, using the GameManager, and then if the lives are 0 we trigger the defeat reseting the player data with the GameManager and loading the defeat scene with the sceneManager. also each time the ball collides with anything play a fx using the audioManager.
+AdjustTop - a script to adjust the bricks when the resolution of the screen changes.
+BrickController - here we initialize randomly the resistance of the brick and apply a color to each resistance value, then we check when the resistance is 0 and using the GameManager increase the score, and using the AudioManager we play a sound. also randomly Instantiate a PowerUp when the block its destroyed
+PowerUpController - In this script we initialize randomly 3 types of power ups, each one has a color assigned. and activates the effect if the powerup collides with the paddle.
+
+Victory:
+VictoryManager - at the start we sum one to the level variable with the GameManager, and then we save the player data with the GameManager too, and then we have the funcs for the two buttons of the scene, save and quit, or continue, in the continue, we simply load the game scene with the SceneManager, and in the save and quit, we load the menu scene with the sceneManager.
+
+Defeat:
+DefeatManager - in this scene at the start we reset the player data, also we only have one button in this scene and is for returning to the menu with the help of the SceneManager loading the menu.

@@ -13,9 +13,16 @@ public class GameManager : MonoBehaviour
         Defeat
     }
 
+    public enum ScreenType
+    {
+        Landscape,
+        Portrait
+    }
+
     [Header("Game Variables")]
     public GameState currentGameState;
     public PlayerData playerData;
+    public ScreenType screenType;
 
     private void Awake()
     {
@@ -34,7 +41,16 @@ public class GameManager : MonoBehaviour
         playerData.LoadHighscore();
 
         Application.targetFrameRate = 60;
-        Screen.SetResolution(1920 / 2, 1080 / 2, FullScreenMode.Windowed);
+        if (screenType == ScreenType.Landscape)
+        {
+            Screen.SetResolution(1920 / 2, 1080 / 2, FullScreenMode.Windowed);
+            screenType = ScreenType.Landscape;
+        }
+        else if (screenType == ScreenType.Portrait)
+        {
+            Screen.SetResolution(1080 / 2, 1920 / 2, FullScreenMode.Windowed);
+            screenType = ScreenType.Portrait;
+        }
     }
 
     private void Update()
@@ -76,10 +92,12 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             Screen.SetResolution(1920 / 2, 1080 / 2, FullScreenMode.Windowed);
+            screenType = ScreenType.Landscape;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             Screen.SetResolution(1080 / 2, 1920 / 2, FullScreenMode.Windowed);
+            screenType = ScreenType.Portrait;
         }
     }
 
