@@ -138,10 +138,10 @@ MonoBehaviour:
   initialResistance: 0
   resistance: 0
   colors:
+  - {r: 1, g: 1, b: 1, a: 0.2}
+  - {r: 1, g: 1, b: 1, a: 0.5019608}
+  - {r: 1, g: 1, b: 1, a: 0.8}
   - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 0.989607, b: 0, a: 1}
-  - {r: 0, g: 0.2204752, b: 1, a: 1}
-  - {r: 0.30863357, g: 1, b: 0, a: 1}
   image: {fileID: 6795016458422598300}
   powerUp: {fileID: 2215892987329693652, guid: 619e5d933aaf33a43a4dfbb822980af0, type: 3}
   boxCollider: {fileID: 7624661217408266258}
