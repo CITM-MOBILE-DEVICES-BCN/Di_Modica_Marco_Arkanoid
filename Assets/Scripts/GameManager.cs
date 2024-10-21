@@ -32,15 +32,13 @@ public class GameManager : MonoBehaviour
         playerData = new PlayerData(3, 0, 0, 1);
 
         playerData.LoadHighscore();
+
+        Application.targetFrameRate = 60;
+        Screen.SetResolution(1920 / 2, 1080 / 2, FullScreenMode.Windowed);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-
         switch (SceneManager.instance.GetCurrentScene())
         {
             case "Menu":
@@ -74,6 +72,15 @@ public class GameManager : MonoBehaviour
                 }
                 break;
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            Screen.SetResolution(1920 / 2, 1080 / 2, FullScreenMode.Windowed);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            Screen.SetResolution(1080 / 2, 1920 / 2, FullScreenMode.Windowed);
+        }
     }
 
     private void SetGameState(GameState newGameState)
@@ -101,6 +108,11 @@ public class GameManager : MonoBehaviour
         playerData.lives = newLives;
     }
 
+    public void SetLevel(int newLevel)
+    {
+        playerData.level = newLevel;
+    }
+
     public int GetScore()
     {
         return playerData.score;
@@ -125,5 +137,6 @@ public class GameManager : MonoBehaviour
     {
         SetScore(0);
         SetLives(3);
+        SetLevel(1);
     }
 }

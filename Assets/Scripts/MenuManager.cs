@@ -23,6 +23,7 @@ public class MenuManager : MonoBehaviour
     public void NewGame()
     {
         SceneManager.instance.LoadGame();
+        GameManager.instance.ResetGame();
         GameManager.instance.playerData.Reset();
     }
 

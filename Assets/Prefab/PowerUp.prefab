@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f68a925a44f2414c9643755f2317c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color1: {r: 0.55602527, g: 0.990566, b: 0.76046073, a: 0}
-  color2: {r: 1, g: 0.7311321, b: 0.7311321, a: 0}
-  color3: {r: 0.6273585, g: 0.65601534, b: 1, a: 0}
+  color1: {r: 0.55602527, g: 0.990566, b: 0.76046073, a: 1}
+  color2: {r: 1, g: 0.7311321, b: 0.7311321, a: 1}
+  color3: {r: 0.6273585, g: 0.65601534, b: 1, a: 1}
   powerUpText: {fileID: 9076003462491945655}
