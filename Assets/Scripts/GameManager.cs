@@ -116,6 +116,11 @@ public class GameManager : MonoBehaviour
         return playerData.lives;
     }
 
+    public int GetLevel()
+    {
+        return playerData.level;
+    }
+
     public void ResetGame()
     {
         SetScore(0);

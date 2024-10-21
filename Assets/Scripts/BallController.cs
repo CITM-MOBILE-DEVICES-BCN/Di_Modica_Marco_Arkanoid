@@ -107,14 +107,33 @@ public class BallController : MonoBehaviour
             direction.Normalize();
         }
 
-        if (collision.gameObject.CompareTag("BrickT"))
+        // Brick collision (NOT YET FINISHED)
+        if (collision.gameObject.CompareTag("Brick"))
         {
-            direction.y = -direction.y;
-        }
+            Vector2 ballPosition = transform.position;
+            Bounds brickBounds = collision.bounds;
 
-        if (collision.gameObject.CompareTag("BrickS"))
-        {
-            direction.x = -direction.x;
+            float distLeft = Mathf.Abs(ballPosition.x - brickBounds.min.x);
+            float distRight = Mathf.Abs(ballPosition.x - brickBounds.max.x);
+            float distUp = Mathf.Abs(ballPosition.y - brickBounds.max.y);
+            float distDown = Mathf.Abs(ballPosition.y - brickBounds.min.y);
+
+            if (distLeft < distRight && distLeft < distUp && distLeft < distDown)
+            {
+                direction.x = -direction.x;
+            }
+            else if (distRight < distLeft && distRight < distUp && distRight < distDown)
+            {
+                direction.x = -direction.x;
+            }
+            else if (distUp < distLeft && distUp < distRight && distUp < distDown)
+            {
+                direction.y = -direction.y;
+            }
+            else if (distDown < distLeft && distDown < distRight && distDown < distUp)
+            {
+                direction.y = -direction.y;
+            }
         }
 
         StartCoroutine(ResetCollision());

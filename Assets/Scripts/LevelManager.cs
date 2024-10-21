@@ -54,7 +54,6 @@ public class LevelManager : MonoBehaviour
         if (levelComplete)
         {
             Debug.Log("Level Complete");
-            GameManager.instance.playerData.level++;
             GameManager.instance.playerData.Save();
             SceneManager.instance.LoadVictory();
         }
